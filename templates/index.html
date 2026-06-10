@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ambit - Welcome Slide Generator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .ambit-header {
+            background-color: #d81b60; /* Ambit Brand Red */
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container mt-5 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-md-9">
+                
+                <div class="text-center mb-4">
+                    <h2 class="fw-bold" style="color: #d81b60;">AMBIT</h2>
+                    <p class="text-muted">New Joinee Welcome Automation</p>
+                </div>
+
+                <div class="card shadow-sm border-0">
+                    <div class="card-header ambit-header py-3">
+                        <h5 class="mb-0">Employee Details</h5>
+                    </div>
+                    <div class="card-body p-4">
+                        <form action="/generate" method="POST" enctype="multipart/form-data">
+                            
+                            <div class="row mb-3">
+                                <div class="col-md-5">
+                                    <label class="form-label fw-bold">Full Name</label>
+                                    <input type="text" class="form-control" name="emp_name" placeholder="e.g., Arjun Patil" required>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label fw-bold">Gender</label>
+                                    <select class="form-select" name="gender" required>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Professional Photo</label>
+                                    <input class="form-control" type="file" name="emp_photo" accept="image/png, image/jpeg" required>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Designation</label>
+                                    <input type="text" class="form-control" name="designation" placeholder="e.g., Data Analyst" required>
+                                </div>
+                                <!-- Business Line & Function Dropdowns -->
+                            <!-- Business Line, Department & Location -->
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Business Line</label>
+                                    <select class="form-select" name="business_line" id="business_line" onchange="updateDepartments()" required>
+                                        <option value="" disabled selected>Select Business Line...</option>
+                                        <option value="Group Corporate Office">Group Corporate Office</option>
+                                        <option value="Global Private Client">Global Private Client</option>
+                                        <option value="Investment Banking">Investment Banking</option>
+                                        <option value="Institutional Equities">Institutional Equities</option>
+                                        <option value="Asset Management">Asset Management</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Department / Function</label>
+                                    <select class="form-select" name="department" id="department" required>
+                                        <option value="" disabled selected>Select Business First...</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Location</label>
+                                    <select class="form-select" name="location" required>
+                                        <option value="" disabled selected>Select Location...</option>
+                                        <option value="Delhi">Delhi</option>
+                                        <option value="Mumbai">Mumbai</option>
+                                        <option value="DIFC">DIFC</option>
+                                        <option value="Gandhinagar">Gandhinagar</option>
+                                        <option value="Bangalore">Bangalore</option>
+                                        <option value="Singapore">Singapore</option>
+                                        <option value="Jaipur">Jaipur</option>
+                                        <option value="Bhopal">Bhopal</option>
+                                        <option value="Chandigarh">Chandigarh</option>
+                                    </select>
+                                </div>
+                            </div>
+                            </div>
+
+                            <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Is Sector Applicable?</label>
+                                <select class="form-select" name="sector_applicable" id="sector_applicable" onchange="toggleSector()">
+                                    <option value="no">No</option>
+                                    <option value="yes">Yes</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6" id="sector_div" style="display: none;">
+                                <label class="form-label fw-bold">Sector Name</label>
+                                <input type="text" class="form-control" name="sector_name" placeholder="e.g., Oil & Gas sector">
+                            </div>
+                        </div> 
+
+                            <hr class="my-4">
+                            <h6 class="fw-bold text-secondary mb-3">Background Information</h6>
+
+                            <!-- Experience Level & Previous Organizations -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Experience Level</label>
+                                    <select class="form-select" name="experience_level" id="experience_level" onchange="toggleExperience()" required>
+                                        <option value="" disabled selected>Select Level...</option>
+                                        <option value="fresher">Fresher</option>
+                                        <option value="experienced">Experienced</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6" id="org_div" style="display: none;">
+                                    <label class="form-label fw-bold">Previous Organizations</label>
+                                    <!-- Note: I removed the 'required' tag here so the form submits perfectly if they are a fresher! -->
+                                    <input type="text" class="form-control" name="companies" placeholder="e.g., Wipro, Motilal Oswal">
+                                    <div class="form-text">Fills: "...experience working with organizations like [Your Input]."</div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Professional Certification?</label>
+                                    <select class="form-select" name="cert_applicable" id="cert_applicable" onchange="toggleCert()">
+                                        <option value="no">No</option>
+                                        <option value="yes">Yes</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6" id="cert_div" style="display: none;">
+                                    <label class="form-label fw-bold">Select Certification</label>
+                                    <select class="form-select" name="cert_type">
+                                        <option value="Chartered Accountant">CA (Chartered Accountant)</option>
+                                        <option value="Chartered Financial Analyst">CFA (Chartered Financial Analyst)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Academic Qualifications</label>
+                                <input type="text" class="form-control" name="universities" placeholder="e.g., an MBA from IIM Calcutta" required>
+                                <div class="form-text">Fills: "...holds [Your Input]."</div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">Hobbies & Interests</label>
+                                <input type="text" class="form-control" name="hobbies" placeholder="e.g., Reading and Travelling" required>
+                                <div class="form-text">Fills: "...is an avid enthusiast of [Your Input]."</div>
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-lg ambit-header">Generate Welcome Slide</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script>
+    // Existing toggle scripts
+    function toggleSector() {
+        var dropdown = document.getElementById("sector_applicable");
+        var sectorBox = document.getElementById("sector_div");
+        if (dropdown.value.toLowerCase() === "yes") {
+            sectorBox.style.display = "block";
+        } else {
+            sectorBox.style.display = "none";
+        }
+    }
+
+    function toggleCert() {
+        var certDropdown = document.getElementById("cert_applicable");
+        var certBox = document.getElementById("cert_div");
+        if (certDropdown.value.toLowerCase() === "yes") {
+            certBox.style.display = "block";
+        } else {
+            certBox.style.display = "none";
+        }
+    }
+
+    function toggleExperience() {
+        var expDropdown = document.getElementById("experience_level");
+        var orgBox = document.getElementById("org_div");
+        if (expDropdown.value === "experienced") {
+            orgBox.style.display = "block";
+        } else {
+            orgBox.style.display = "none";
+        }
+    }
+
+    // NEW: Dynamic Department Loader
+    const departmentData = {
+        "Group Corporate Office": ["Human Resources", "Finance and Accounts", "Operations", "Information Technology", "Risk", "Legal & Compliance", "Administration", "Brand & Communications", "Group CEO Office"],
+        "Global Private Client": ["Client Relations", "Client Experience", "Capital Markets & Trading", "Product & Advisory", "Central Office", "Wealth Operations", "Fixed Income", "DIFC", "Family Office", "Investments"],
+        "Investment Banking": ["CF", "ECM"],
+        "Institutional Equities": ["Sales Trading & Dealing", "Research", "Sales", "Corporate Access", "Brand & Corporate Communications", "Corporate"],
+        "Asset Management": ["Fund Management", "Service", "Sales", "Operations", "Research", "Marketing", "AM", "Trading & Dealing", "Product & Central Partnerships"]
+    };
+
+    function updateDepartments() {
+        var bizSelect = document.getElementById("business_line");
+        var deptSelect = document.getElementById("department");
+        var selectedBiz = bizSelect.value;
+        
+        // Clear old options
+        deptSelect.innerHTML = '<option value="" disabled selected>Select Department...</option>';
+        
+        // Populate new options if a valid business is selected
+        if (selectedBiz && departmentData[selectedBiz]) {
+            departmentData[selectedBiz].forEach(function(dept) {
+                var option = document.createElement("option");
+                option.value = dept;
+                option.text = dept;
+                deptSelect.appendChild(option);
+            });
+        }
+    }
+</script>
+</body>
+</html>

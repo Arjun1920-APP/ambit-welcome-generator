@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preview - {{ emp_name }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .ambit-btn {
+            background-color: #d81b60;
+            color: white;
+            border: none;
+        }
+        .ambit-btn:hover {
+            background-color: #b0154e;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container mt-5 mb-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3 class="mb-0">Review Generated Slide</h3>
+            <a href="/" class="btn btn-outline-secondary">Discard & Start Over</a>
+        </div>
+        
+        <div class="row justify-content-center">
+            <div class="col-md-10 text-center">
+                
+                <div class="card shadow-sm mb-4 border-0">
+                    <div class="card-body p-2 bg-white rounded">
+                        <img src="{{ '/' + image_url }}" class="img-fluid rounded border" alt="Generated Welcome Image">
+                    </div>
+                </div>
+                
+                <div class="card shadow-sm text-start border-0">
+                    <div class="card-body p-4 bg-white rounded">
+                        <h5 class="fw-bold mb-3">Shoot Welcome Email</h5>
+                        <form action="/send_email" method="POST">
+    
+    <input type="hidden" name="image_filename" value="{{ image_url.split('/')[-1] if '/' in image_url else image_url.split('\\')[-1] }}">
+    <input type="hidden" name="emp_name" value="{{ emp_name }}">
+    <input type="hidden" name="business_line" value="{{ business_line }}">
+    
+    <div class="mb-3">
+        <label class="form-label fw-bold">To: (All Staff Email)</label>
+        <input type="email" class="form-control" name="target_email" placeholder="e.g., all@ambit.com" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label fw-bold">CC: (New Employee's Email)</label>
+        <input type="email" class="form-control" name="cc_email" placeholder="e.g., new.employee@ambit.com">
+        <div class="form-text">Optional. This will copy the new employee so they can see the welcome message.</div>
+    </div>
+    
+    <button class="btn btn-lg w-100 mt-2 text-white" style="background-color: #d81b60;" type="submit">Shoot Welcome Email</button>
+</form>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</body>
+</html>
