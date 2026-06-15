@@ -293,7 +293,7 @@ def create_welcome_image_auto(data, photo_path, output_path):
     paragraphs.append(para5)
 
     # Build Para 6 (Closing)
-    para6 = f"Please join us in extending a warm welcome to {p_object} and wishing {p_object} every success as {p_sub} begins {p_obj_lower} journey with Ambit."
+    para6 = f"Please Join us in welcoming {first_name} and wishing {p_object} every success as {p_sub} begins {p_obj_lower} journey with Ambit."
     paragraphs.append(para6)
 
     # --- 4. DYNAMIC VERTICAL CENTERING FOR WELCOME BOX ---
