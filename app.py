@@ -289,11 +289,11 @@ def create_welcome_image_auto(data, photo_path, output_path):
     paragraphs.append(para4)
 
     # Build Para 5 (Energy)
-    para5 = f"We are excited to have {first_name} on board and look forward to the energy {p_sub.lower()} will bring to the team."
+    para5 = f"We are excited to have {p_object} on board and look forward to the energy {p_sub.lower()} will bring to the team."
     paragraphs.append(para5)
 
     # Build Para 6 (Closing)
-    para6 = f"Please Join us in welcoming {first_name} and wishing {p_object} every success as {p_sub} begins {p_obj_lower} journey with Ambit."
+    para6 = f"Please join us in welcoming {first_name} and wishing {p_object} every success as {p_sub} begins {p_obj_lower} journey with Ambit."
     paragraphs.append(para6)
 
     # --- 4. DYNAMIC VERTICAL CENTERING FOR WELCOME BOX ---
