@@ -403,9 +403,12 @@ def send_email():
     html_body = f"""
     <html>
         <body style="font-family: Arial, sans-serif; color: #333;">
-            <div style="margin-top: 20px;">
-                <img src="cid:welcome_image" alt="Welcome {emp_name}" style="max-width: 100%; border: 1px solid #ddd; box-shadow: 2px 2px 5px rgba(0,0,0,0.1);">
+            <div style="margin-top: 20px; text-align: center;">
+                
+                <img src="cid:welcome_image" alt="Welcome {emp_name}" style="display: block; margin: 0 auto; width: 100%; max-width: 1220px; height: auto; border: 1px solid #ddd; box-shadow: 2px 2px 5px rgba(0,0,0,0.1);">
+                
             </div>
+            
             <p style="margin-top: 30px; font-size: 12px; color: #888;">
                 Best regards,<br>
                 <b>Ambit HR</b>
