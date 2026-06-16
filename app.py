@@ -395,7 +395,9 @@ def send_email():
     msg['To'] = target_email
     
     if cc_email:
-        msg['Cc'] = cc_email
+        # This cleans up the string, ensuring emails are perfectly separated by a comma and a space, ignoring typos
+        clean_cc = ", ".join([email.strip() for email in cc_email.split(',') if email.strip()])
+        msg['Cc'] = clean_cc
         msg['Bcc'] = "AmbitHR@ambit.co"
 
     html_body = f"""
